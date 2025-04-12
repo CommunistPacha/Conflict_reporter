@@ -67,7 +67,7 @@ class ConflictReportUpdate(BaseModel):
 
 @app.post("/reports/")
 
-def create_report(report: ConflictReportUpdate, db: Session = Depends(get_db)):
+def create_report(report: ConflictReportCreate, db: Session = Depends(get_db)):
     db_report = ConflictReport(**report.dict())
     db.add(db_report)
     db.commit()
