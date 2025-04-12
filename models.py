@@ -19,7 +19,7 @@ class ConflictReport(Base):
     conflict_type = Column(String)
     distance_from_forest = Column(Float)
     habitat = Column(String)
-    prt_engagment = Column(Boolean)
+    prt_engagement = Column(Boolean)
     prt_members = Column(String)
     indirect_signs = Column(Boolean)
     ct_images = Column(Boolean)
