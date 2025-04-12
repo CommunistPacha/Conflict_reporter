@@ -1,0 +1,22 @@
+{
+    "date": "2025-04-11",
+    "gps_location": "12.9716° N, 77.5946° E",
+    "conflict_time": "14:30:00",
+    "place": "Near the big tree",
+    "village": "Kozhikode",
+    "section": "East",
+    "range": "Kozhikode",
+    "division": "Kozhikode",
+    "conflict_animal": "Elephant",
+    "conflict_type": "Crop Damage",
+    "distance_from_forest": 1.2,
+    "habitat": "Forest Edge",
+    "prt_engagement": true,
+    "prt_members": "Abu, Appu, Chirukandan, Kunhambu",
+    "indirect_signs": true,
+    "ct_images": false,
+    "fd_approach": true,
+    "media_involved": false,
+    "description": "Elephant entered fields at dusk. Damaged several banana trees. PRT engaged."
+  }
+  

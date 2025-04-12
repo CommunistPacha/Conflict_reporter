@@ -22,6 +22,27 @@ def get_db():
     finally:
         db.close()
 
+class ConflictReportCreate(BaseModel):
+    date: date
+    gps_location: str
+    conflict_time: time
+    place: str
+    village: str
+    section: str
+    range: str
+    division: str
+    conflict_animal: str
+    conflict_type: str
+    distance_from_forest: float
+    habitat: str
+    prt_engagement: bool
+    prt_members: str
+    indirect_signs: bool
+    ct_images: bool
+    fd_approach: bool
+    media_involved: bool
+    description: str
+
 class ConflictReportUpdate(BaseModel):
     date: Optional[date] | None = None
     gps_location: str | None = None
@@ -53,7 +74,6 @@ def create_report(report: ConflictReportUpdate, db: Session = Depends(get_db)):
     db.refresh(db_report)
     return db_report
 
-@app.get("/reports/")
 
 @app.get("/reports/{report_id}")
 def get_report(report_id: int, db: Session = Depends(get_db)):
@@ -63,10 +83,6 @@ def get_report(report_id: int, db: Session = Depends(get_db)):
     return report
 
 
-@app.get("/reports/")
-def get_reports(db: Session = Depends(get_db)):
-    reports = db.query(ConflictReport).all()
-    return reports
 
 
 @app.put("/reports/{report_id}")
