@@ -9,11 +9,12 @@ from typing import Optional
 
 app = FastAPI()
 
-DATABASE_URL = "sqlite:///./test.db"  #example db url
+DATABASE_URL = "sqlite:///./test.db"  # example db url
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base.metadata.create_all(bind=engine)
+
 
 def get_db():
     db = SessionLocal()
@@ -21,6 +22,7 @@ def get_db():
         yield db
     finally:
         db.close()
+
 
 class ConflictReportCreate(BaseModel):
     date: date
@@ -42,6 +44,7 @@ class ConflictReportCreate(BaseModel):
     fd_approach: bool
     media_involved: bool
     description: str
+
 
 class ConflictReportUpdate(BaseModel):
     date: Optional[date] | None = None
@@ -66,7 +69,6 @@ class ConflictReportUpdate(BaseModel):
 
 
 @app.post("/reports/")
-
 def create_report(report: ConflictReportCreate, db: Session = Depends(get_db)):
     db_report = ConflictReport(**report.dict())
     db.add(db_report)
@@ -77,17 +79,17 @@ def create_report(report: ConflictReportCreate, db: Session = Depends(get_db)):
 
 @app.get("/reports/{report_id}")
 def get_report(report_id: int, db: Session = Depends(get_db)):
-    report = db.query(ConflictReport).filter(ConflictReport.id == report_id).first()
+    report = db.query(ConflictReport).filter(
+        ConflictReport.id == report_id).first()
     if report is None:
         return {"error": "Report not found"}
     return report
 
 
-
-
 @app.put("/reports/{report_id}")
 def update_report(report_id: int, report: ConflictReportUpdate, db: Session = Depends(get_db)):
-    db_report = db.query(ConflictReport).filter(ConflictReport.id == report_id).first()
+    db_report = db.query(ConflictReport).filter(
+        ConflictReport.id == report_id).first()
     if db_report is None:
         return {"error": "Report not found"}
 
@@ -98,13 +100,14 @@ def update_report(report_id: int, report: ConflictReportUpdate, db: Session = De
     db.refresh(db_report)
     return db_report
 
+
 @app.delete("/reports/{report_id}")
 def delete_report(report_id: int, db: Session = Depends(get_db)):
-    report = db.query(ConflictReport).filter(ConflictReport.id == report_id).first()
+    report = db.query(ConflictReport).filter(
+        ConflictReport.id == report_id).first()
     if report is None:
         return {"error": "Report not found"}
-    
+
     db.delete(report)
     db.commit()
     return {"message": "Report deleted successfully"}
-
